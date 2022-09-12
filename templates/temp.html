@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Temporary Table {% endblock %}
+{% block header %} Temporary Table {% endblock %}
+
+{% block body %}
+<div class="container">
+    <table id="example2" class="display nowrap" style="width:100%">
+        <thead style="background-color: #808080;color:aliceblue">
+            <th>#</th>
+            <th>Name</th>
+            <th>Total_Min</th>
+            <th>Total_Percentage</th>
+        </thead>
+
+        <tbody>
+            {% for student in students %}
+            <tr
+            style="background-color: white;"
+            >
+            <td> {{ loop.index }} </td>
+            <td> {{ student[0] }}</td>
+            <td> {{ student[1] }}</td>
+            <td> {{ student[2] }}</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

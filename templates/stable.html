@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Stable Attendance {% endblock %}
+{% block header %} Stable Attendance {% endblock %}
+
+{% block body %}
+<button id= 'add-button' class="btn btn-outline-primary button-18" onclick="redirection()">Add Student</button>
+<script>
+  function redirection() {
+    window.location.href="http://127.0.0.1:5000/add_student";
+  }
+</script>
+<div class="container">
+      <table id="example" class="display nowrap" style="width:100%">
+        <thead style="background-color: #808080;color:aliceblue">
+            <th>#</th>
+            <th>Name</th>
+            <th>Total_Min</th>
+            <th>Total_Percentage</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr
+            style="background-color: white;"
+            >
+            <td> {{ loop.index }} </td>
+            <td> {{ student[0] }}</td>
+            <td> {{ student[1] }}</td>
+            <td> {{ student[2] }}</td>
+            <td> 
+                <span style="font-size: 24px;">
+                <a href="/edit/{{ student[0] }}"> <i class="fas fa-edit"></i></a> </span>
+                 | <span style="font-size: 24px;">  
+                   <a href="/delete/{{ student[0] }}"> <i class="fas fa-trash-alt"></i></a></span>
+            </td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

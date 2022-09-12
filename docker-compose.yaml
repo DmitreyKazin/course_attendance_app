@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - data:/var/lib/mysql
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile-flask
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+    command: sh -c "sleep 10s ; python3 ./app.py"
+    depends_on:
+      - mysql
+
+volumes:
+  data:

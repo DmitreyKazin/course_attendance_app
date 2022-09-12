@@ -1,0 +1,9 @@
+# ignore .git and .cache
+.git
+.cache
+# ignore python env
+.env
+# ignore docker env
+env/
+# ignore virtual env
+.venv/
