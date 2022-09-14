@@ -24,13 +24,13 @@ This application allows to manage and monitor student attendance in webex meetin
 > **_NOTE:_**  Docker-Compose is pre-installed in Win/Mac OS after installing Docker, but in Linux OS you'll have to install Docker-Compose seperatly .
 
 - Before you run the application, you will need to add enviorment variables files, as mentioned below:
-  - **"env/mysql.env"**
+** 1) "env/mysql.env"**
 ```
 MYSQL_ROOT_PASSWORD=< YOUR_ROOT_PASSWORD >
 MYSQL_DATABASE=< YOUR_DB_NAME >
 ```
-  
-   - **".env"** will contain the bellow content:
+
+** 2) ".env"** will contain the bellow content:
 ```
 DB_USER = root
 DB_PASS = < same as "MYSQL_ROOT_PASSWORD" in "env/mysql.env" >
