@@ -29,6 +29,7 @@ This application allows to manage and monitor student attendance in webex meetin
 MYSQL_ROOT_PASSWORD=< YOUR_ROOT_PASSWORD >
 MYSQL_DATABASE=< YOUR_DB_NAME >
 ```
+  
   - **".env"** will contain the bellow content:
 ```
 DB_USER = root
