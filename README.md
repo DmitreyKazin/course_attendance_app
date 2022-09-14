@@ -63,6 +63,7 @@ docker-compose down
   - Auto-fill the "Total_Percentage" column after filling the "Total_Min" column.
 
 - **DevOps**:
-  - Implement Jenkins.
-  - Use Kubernetes.
+  - Create Jenkins pipeline that will connect the app repository on github to Jenkins.
+  - Run application on Kubernetes.
+  - Create a pipeline that builds, tests, and deploys the application to Kubernetes.
   - Deploy to AWS.
