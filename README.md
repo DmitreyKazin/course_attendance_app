@@ -9,6 +9,7 @@ This application allows to manage and monitor student attendance in webex meetin
 
 - **"/"** --> Main route, shows the managable table called "Stable Table".
 - **"/temp"** --> Shows the summary generated from the CSV files, with attendance.py script.
+- **"/all"** --> Shows a table with student name, and his total minutes time for each meeting.
 - **"/add_student"** --> Add a new student to "Stable Table".
 - **"/edit/<name>"** --> Edit a record for specific student in "Stable Table".
 - **"/delete/<name>"** --> Delere a record for specific student in "Stable Table".
@@ -57,8 +58,8 @@ docker-compose down
 ## TO-DO
 
 - **Application**:
-  - Add a new page, which will contain all CSV files in one table.
   - Download the CSV files from an outside server using SFTP.
+  - Add filter by date to "/all" route.
   - Display "Total Meetings Time" in "/" page.
   - Auto-fill the "Total_Percentage" column after filling the "Total_Min" column.
 
