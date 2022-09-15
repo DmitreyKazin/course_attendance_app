@@ -3,9 +3,12 @@
 # external libraries import
 import mysql.connector
 import pandas as pd
+from sqlalchemy import create_engine
+import pymysql
 
 # internal modules import
 import attendance 
+import merge_csv
 
 #.env variable package
 import os 
@@ -15,6 +18,7 @@ load_dotenv()  # take environment variables from .env.
 
 MEETINGS_CSV_FOLDER = './csv_files'
 MEETINGS_SUB_CSV = './csv_files/all_meetings_submission.csv'
+ALL_MEETINGS_CSV = './csv_files/all_meetings.csv'
 
 db_connection = mysql.connector.connect(
 			        host='mysql',
@@ -96,3 +100,23 @@ def edit_stable_student(old_name, new_name, total_min, total_percentage):
                    ''', (new_name, total_min, total_percentage, old_name))
     db_connection.commit()
 
+def create_all_meetings():
+    merge_csv.merge_all_csv(MEETINGS_CSV_FOLDER)
+    cursor.execute(" DROP TABLE IF EXISTS all_meetings ")
+    df = pd.read_csv(ALL_MEETINGS_CSV)
+    engine = create_engine("mysql+pymysql://" + os.getenv('DB_USER') + ":"
+                           + os.getenv('DB_PASS') + "@mysql" + "/" + os.getenv('DB_NAME'))
+    df.to_sql('all_meetings', engine, index=False)
+
+def query_all_meetings():
+    cursor.execute(" SELECT * FROM all_meetings ")
+    return cursor.fetchall()
+
+def query_all_meetings_columns():
+    columns = cursor.execute('''
+                   SELECT COLUMN_NAME
+                   FROM INFORMATION_SCHEMA.COLUMNS
+                   WHERE TABLE_SCHEMA = "attendance_app"
+                   AND TABLE_NAME = "all_meetings";
+                   ''')
+    return cursor.fetchall()

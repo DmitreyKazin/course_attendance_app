@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} All Meetings {% endblock %}
+{% block header %} All Meetings {% endblock %}
+
+{% block body %}
+<div class="container">
+    <table id="example2" class="display nowrap" style="width:100%">
+        <thead style="background-color: #808080;color:aliceblue">
+            <th>#</th> 
+            {% for col in columns %}
+              <th>{{ col }}</th>
+            {% endfor %}
+        </thead>
+
+        <tbody>
+            {% for student in students %}
+            <tr
+            style="background-color: white;"
+            >
+                
+                {% for attribute in student %}
+                    <td>{{ attribute }}</td>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

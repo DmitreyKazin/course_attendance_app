@@ -18,7 +18,7 @@ app.config['SECRET_KEY'] = secret_key
 def create_table():
     db.create_temp_attendance()
     db.create_stable_attendance()
-
+    db.create_all_meetings()
 
 @app.errorhandler(404)
 def not_found(e):
@@ -30,6 +30,14 @@ def stable_attendance():
     students = db.query_all_stable_attendance()
     return render_template('stable.html', students=students)
 
+@app.route('/all')
+def all_meetings():
+    students = db.query_all_meetings()
+    columns = db.query_all_meetings_columns()
+    clean_columns = []
+    for i in range (1, len(columns)):
+        clean_columns.append(str(columns[i]).split("'")[1])
+    return render_template('all_meetings.html', students=students, columns=clean_columns)
 
 @app.route('/temp')
 def temp_attendance():
