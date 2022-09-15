@@ -9,7 +9,7 @@ This application allows to manage and monitor student attendance in webex meetin
 
 - **"/"** --> Main route, shows the managable table called "Stable Table".
 - **"/temp"** --> Shows the summary generated from the CSV files, with attendance.py script.
-- **"/all"** --> Shows a table with student name, and his total minutes time for each meeting.
+- **"/all"** --> Shows a table with student name, and his total minutes time for every meeting.
 - **"/add_student"** --> Add a new student to "Stable Table".
 - **"/edit/<name>"** --> Edit a record for specific student in "Stable Table".
 - **"/delete/<name>"** --> Delere a record for specific student in "Stable Table".
