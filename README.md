@@ -4,7 +4,7 @@ This application allows to manage and monitor student attendance in webex meetin
 - Jinja2 is used as a template wraper for html pages.
 - MySQL was chosen to be the database provider.
 - Docker-compose is used to run the application and the database seperatly within containers.
-- Jenkins is used as CI/CD pipeline. The pipeline cloning GitHub repository, builds an Image, pushed it to DockerHub, cleans up memory, and send email at the end.
+- Jenkins is used as CI/CD pipeline. The pipeline cloning GitHub repository, builds an Image, pushed it to DockerHub, cleans up memory, and sends email at the end.
 
 ## Application Routes
 
