@@ -10,7 +10,9 @@ services:
     volumes:
       - data:/var/lib/mysql
   flask:
-    image: dmitreykazin/course_attendance_app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-flask
     container_name: flask-app
     ports:
       - "5000:5000"
