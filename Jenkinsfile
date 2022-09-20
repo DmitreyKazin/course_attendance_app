@@ -11,9 +11,6 @@ pipeline {
     stages {
         stage ('Clone Git') {
             steps {
-                echo "*******************************************************"
-                echo "                    CLONE START                        "
-                echo :
                 git 'https://github.com/DmitreyKazin/course_attendance_app.git'
             }
         }
