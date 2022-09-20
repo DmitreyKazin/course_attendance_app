@@ -1,13 +1,10 @@
 pipeline {
-    
     agent any
-    
     environment {
         registry = 'dmitreykazin/course_attendance_app'
         registryCredential = '3e0b51f4-078c-45be-aae6-46b7b853a4d1'
         dockerImage = ''
     }
-    
     stages {
         stage ('Clone Git') {
             steps {
@@ -37,7 +34,6 @@ pipeline {
             }
         }
     }
-    
     post {
         always {
             emailext to: "kazindmitrey@gmail.com",
