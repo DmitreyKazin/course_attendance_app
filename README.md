@@ -38,6 +38,9 @@ MYSQL_DATABASE=< YOUR_DB_NAME >
 DB_USER = root
 DB_PASS = < same as "MYSQL_ROOT_PASSWORD" in "env/mysql.env" >
 DB_NAME = < same as "MYSQL_DATABASE" in "env/mysql.env" >
+RMT_HOST = < remote machine address >
+RMT_USER = < user in RMT_HOST >
+RMT_PASSWD = < password in RMT_USER >
 ```
 
 ## Run The Application
@@ -59,12 +62,12 @@ docker-compose down
 ## TO-DO
 
 - **Application**:
-  - Download the CSV files from an outside server using SFTP.
+  - Fix BUG ---> total_percentage doesn't work as expected after downloading csv files from remote machine.
   - Add filter by date to "/all" route.
   - Display "Total Meetings Time" in "/" page.
   - Auto-fill the "Total_Percentage" column after filling the "Total_Min" column.
 
 - **DevOps**:
-  - Implement unit-tests in Jenkins pipeline.
+  - Use checkout instead of clone in Jenkinsfile.
   - Run application on Kubernetes.
   - Deploy to AWS.
