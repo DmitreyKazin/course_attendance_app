@@ -6,6 +6,7 @@ import secrets
 
 # internal models import
 import db
+import sftp
 
 TEMPALTES_FOLDER = './templates'
 
@@ -15,7 +16,8 @@ app.config['SECRET_KEY'] = secret_key
 
 
 @app.before_first_request
-def create_table():
+def initialization():
+    sftp.download_all_csv()
     db.create_temp_attendance()
     db.create_stable_attendance()
     db.create_all_meetings()
