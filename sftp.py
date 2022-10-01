@@ -14,7 +14,6 @@ LOCAL_PATH = './csv_files'
 load_dotenv()
 
 def download_all_csv():
-
 	# creating a directory
 	os.mkdir('csv_files')
 	# download files
