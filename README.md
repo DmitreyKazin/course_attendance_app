@@ -38,6 +38,9 @@ MYSQL_DATABASE=< YOUR_DB_NAME >
 DB_USER = root
 DB_PASS = < same as "MYSQL_ROOT_PASSWORD" in "env/mysql.env" >
 DB_NAME = < same as "MYSQL_DATABASE" in "env/mysql.env" >
+RMT_HOST = < remote machine address >
+RMT_USER = < user in RMT_HOST >
+RMT_PASSWD = < password in RMT_USER >
 ```
 
 ## Run The Application
