@@ -68,6 +68,5 @@ docker-compose down
   - Auto-fill the "Total_Percentage" column after filling the "Total_Min" column.
 
 - **DevOps**:
-  - Use checkout instead of clone in Jenkinsfile.
   - Run application on Kubernetes.
   - Deploy to AWS.
