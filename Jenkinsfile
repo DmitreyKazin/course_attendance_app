@@ -1,20 +1,33 @@
 pipeline {
+    
     agent any
+    
     environment {
-        registry = 'dmitreykazin/course_attendance_app'
-        registryCredential = '3e0b51f4-078c-45be-aae6-46b7b853a4d1'
+        dockerHubRegistry = 'dmitreykazin/course_attendance_app'
+        dockerHubRegistryCredential = '3e0b51f4-078c-45be-aae6-46b7b853a4d1'
         dockerImage = ''
+        gitHubCredential = 'a0bb4e47-f112-4b84-9e36-1fb1d2239d7e'
+        gitHubURL = 'https://github.com/DmitreyKazin/course_attendance_app.git'
     }
+    
     stages {
-        stage ('Clone Git') {
+        stage ('Git Checkout') {
             steps {
-                git 'https://github.com/DmitreyKazin/course_attendance_app.git'
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: 'master']], 
+                    doGenerateSubmoduleConfigurations: false, 
+                    extensions: [[$class: 'CleanCheckout']], 
+                    submoduleCfg: [], 
+                    userRemoteConfigs: [[credentialsId: gitHubCredential,
+                                         url: gitHubURL]]
+                ])
             }
         }
         stage ('Build Image') {
             steps {
                 script { 
-                    dockerImage = docker.build(registry + ":latest",
+                    dockerImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
                 }
             }
@@ -22,7 +35,7 @@ pipeline {
         stage ('Deploy to DockerHub') {
             steps {
                script {
-                    docker.withRegistry( '', registryCredential ) {
+                    docker.withRegistry( '', dockerHubRegistryCredential ) {
                         dockerImage.push()
                     }
                 }
@@ -30,15 +43,16 @@ pipeline {
         }
         stage ('Clean Memory') {
             steps {
-                sh "docker rmi $registry:latest"
+                sh "docker rmi $dockerHubRegistry:latest"
             }
         }
     }
+    
     post {
         always {
             emailext to: "kazindmitrey@gmail.com",
-                     subject: "Jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
-                     body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+            subject: "Jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
         }
     }
 }
