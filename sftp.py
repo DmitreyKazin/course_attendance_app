@@ -15,7 +15,10 @@ load_dotenv()
 
 def download_all_csv():
 	# creating a directory
-	os.mkdir('csv_files')
+	try:
+	    os.mkdir('csv_files')
+	except:
+	    print('ERR - csv_files directory exists')
 	# download files
 	transport = paramiko.Transport((os.getenv('RMT_HOST'), 22))
 	transport.connect(username=os.getenv('RMT_USER'),

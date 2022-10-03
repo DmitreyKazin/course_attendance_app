@@ -17,7 +17,7 @@ def data_eng(directory):
     """
     all_meetings = pd.DataFrame()
     total_meetings_time = 0
-    appointments = 0
+    flag = 0
 
     # iterate over all participant files
     for file in os.listdir(directory):
@@ -39,9 +39,11 @@ def data_eng(directory):
             total_meetings_time += total_meeting_time
 
             # calculating attendance time
-            session['Attendance'] = session[['Attendance Duration']].apply(lambda time: time.str.split().str[0])
-            session['Attendance'] = session['Attendance'].astype('int64')
-            session_sub = pd.DataFrame(session.groupby('Name')['Attendance'].sum()).reset_index(level=0)
+            name = 'Attendance' + str(flag)
+            flag += 1
+            session[name] = session[['Attendance Duration']].apply(lambda time: time.str.split().str[0])
+            session[name] = session[name].astype('int64')
+            session_sub = pd.DataFrame(session.groupby('Name')[name].sum()).reset_index(level=0)
 
             # outer join
             if all_meetings.empty:
