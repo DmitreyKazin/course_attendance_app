@@ -61,12 +61,6 @@ docker-compose down
 
 ## TO-DO
 
-- **Application**:
-  - Fix BUG ---> total_percentage doesn't work as expected after downloading csv files from remote machine.
-  - Add filter by date to "/all" route.
-  - Display "Total Meetings Time" in "/" page.
-  - Auto-fill the "Total_Percentage" column after filling the "Total_Min" column.
-
 - **DevOps**:
   - Run application on Kubernetes.
   - Deploy to AWS.
