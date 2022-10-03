@@ -6,6 +6,7 @@ This application allows to manage and monitor student attendance in webex meetin
 - Docker-compose is used to run the application and the database seperatly within containers.
 - Jenkins is used as CI/CD pipeline. The pipeline is clons GitHub repository, builds an Image, pushes it to DockerHub, cleans up memory, and sends email at the end.
 
+For more details, watch the video: [click here](https://vimeo.com/756572554#t=67)
 ## Application Routes
 
 - **"/"** --> Main route, shows the managable table called "Stable Table".
