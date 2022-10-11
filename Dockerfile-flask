@@ -8,6 +8,6 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5000
 
-CMD sh -c "sleep 10s; python3 ./app.py"
+CMD /bin/sh -c "sleep 10s; python3 ./app.py"
