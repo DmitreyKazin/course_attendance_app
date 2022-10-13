@@ -34,7 +34,7 @@ MYSQL_ROOT_PASSWORD=< YOUR_ROOT_PASSWORD >
 MYSQL_DATABASE=< YOUR_DB_NAME >
 ```
 
-**2) ".env"** will contain the bellow content:
+**2) ".env"**
 ```
 DB_USER = root
 DB_PASS = < same as "MYSQL_ROOT_PASSWORD" in "env/mysql.env" >
