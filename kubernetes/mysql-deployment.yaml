@@ -20,13 +20,16 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: app-seccrets
+                  name: app-secrets
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: environment
                   key: DB_NAME
+          ports:
+            - name: mysql-container
+              containerPort: 3306
           volumeMounts:
             - name: app-data
               mountPath: /var/lib/mysql
