@@ -28,7 +28,7 @@ load_dotenv()
 
 # create connection and cursor instances
 db_connection = mysql.connector.connect(
-			        host='mysql',
+			        host='mysql_svc',
 				port="3306",
 			        user=os.getenv('DB_USER'),
                     password=os.getenv('DB_PASS'),
