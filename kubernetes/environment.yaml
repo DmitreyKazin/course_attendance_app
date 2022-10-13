@@ -5,5 +5,4 @@ metadata:
   name: environment
 data:
   DB_USER: 'root'
-  DB_PASS: 'secret'
   DB_NAME: 'attendance_app'
