@@ -110,4 +110,4 @@ def edit(name):
 
 # run the application
 if __name__ == "__main__":
-    app.run(host='flask-app', port=5000, debug=True)
+    app.run(host='flask-svc.default', port=5000)

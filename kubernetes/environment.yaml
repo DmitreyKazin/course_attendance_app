@@ -4,5 +4,6 @@ kind: ConfigMap
 metadata:
   name: environment
 data:
-  DB_USER: 'root'
-  DB_NAME: 'attendance_app'
+  DB_USER: "root"
+  DB_NAME: "attendance_app"
+

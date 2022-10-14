@@ -16,7 +16,7 @@ import merge_csv
 
 #.env variable package
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # global variables
 MEETINGS_CSV_FOLDER = './csv_files'
@@ -24,11 +24,11 @@ MEETINGS_SUB_CSV = './csv_files/all_meetings_submission.csv'
 ALL_MEETINGS_CSV = './csv_files/all_meetings.csv'
 
 # load env
-load_dotenv()
+#load_dotenv()
 
 # create connection and cursor instances
 db_connection = mysql.connector.connect(
-			        host='mysql_svc',
+			        host=os.getenv('MYSQL_ADDRESS'),
 				port="3306",
 			        user=os.getenv('DB_USER'),
                     password=os.getenv('DB_PASS'),
@@ -141,7 +141,7 @@ def create_all_meetings():
     cursor.execute(" DROP TABLE IF EXISTS all_meetings ")
     df = pd.read_csv(ALL_MEETINGS_CSV)
     engine = create_engine("mysql+pymysql://" + os.getenv('DB_USER') + ":"
-                           + os.getenv('DB_PASS') + "@mysql" + "/" + os.getenv('DB_NAME'))
+                           + os.getenv('DB_PASS') + "@" + os.getenv('MYSQL_ADDRESS')+ "/" + os.getenv('DB_NAME'))
     df.to_sql('all_meetings', engine, index=False)
 
 def query_all_meetings():
