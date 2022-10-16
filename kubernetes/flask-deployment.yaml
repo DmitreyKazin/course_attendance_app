@@ -26,36 +26,4 @@ spec:
               #port: 5000
             #initialDelaySeconds: 10
             #timeoutSeconds: 10
-          env:
-            - name: MYSQL_ADDRESS
-              value: "mysql-svc"
-            - name: DB_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: environment
-                  key: DB_USER
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: environment
-                  key: DB_NAME
-            - name: DB_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: MYSQL_ROOT_PASSWORD
-            - name: RMT_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: RMT_HOST
-            - name: RMT_USER
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: RMT_USER
-            - name: RMT_PASSWD
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: RMT_PASSWD
+
