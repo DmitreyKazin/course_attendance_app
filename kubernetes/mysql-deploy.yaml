@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-dplmnt
+  name: mysql
 spec:
   replicas: 1
   selector:
@@ -15,19 +15,24 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:8
+          image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: secret
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
-              value: attendance_app
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-env
+                  key: MYSQL_DATABASE
           ports:
-            - name: mysql-container
-              containerPort: 3306
+            - containerPort: 3306
           volumeMounts:
-            - name: app-data
+            - name: host-pv
               mountPath: /var/lib/mysql
       volumes:
-        - name: app-data
+        - name: host-pv
           persistentVolumeClaim:
             claimName: host-pvc

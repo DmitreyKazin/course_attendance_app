@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-dplmnt
+  name: flask
 spec:
   replicas: 1
   selector:
