@@ -59,9 +59,3 @@ docker-compose up
 # run the following command from the project directory
 docker-compose down
 ```
-
-## TO-DO
-
-- **DevOps**:
-  - Run application on Kubernetes.
-  - Deploy to AWS.
