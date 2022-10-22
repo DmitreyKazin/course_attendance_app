@@ -1,10 +1,10 @@
 # Course Attendance Application
 This application allows to manage and monitor student attendance in webex meetings.
-- Flask is used for the web application.
+- Flask is used as the web application framework.
 - Jinja2 is used as a template wraper for html pages.
 - MySQL was chosen to be the database provider.
-- Docker-compose is used to run the application and the database seperatly within containers.
-- Jenkins is used as CI/CD pipeline. The pipeline is clons GitHub repository, builds an Image, pushes it to DockerHub, cleans up memory, and sends email at the end.
+- Jenkins is used as CI/CD pipeline. The pipeline checkouts GitHub repository, builds an Image, pushes it to DockerHub, cleans up memory, and sends email at the end.
+- Docker-compose and K8s are used as Orchestration tools for docker containers. Choose one of them to run the application.
 
 For more details, watch the video: [click here](https://vimeo.com/756572554#t=67)
 ## Application Routes
@@ -16,7 +16,7 @@ For more details, watch the video: [click here](https://vimeo.com/756572554#t=67
 - **"/edit/<name>"** --> Edit a record for specific student in "Stable Table".
 - **"/delete/<name>"** --> Delere a record for specific student in "Stable Table".
 
-## Installation
+## Installation For Docker Compose
 
 - Instal Docker, and Docker-Compose on your operating system, here are the installation links:
 
@@ -24,7 +24,7 @@ For more details, watch the video: [click here](https://vimeo.com/756572554#t=67
 | :---:   | :---: 
 | Docker | [click here](https://docs.docker.com/get-docker/)   
 | Docker-Compose | [click here](https://docs.docker.com/compose/install/)
-> **_NOTE:_**  Docker-Compose is pre-installed in Win/Mac OS after installing Docker, but in Linux OS you'll have to install Docker-Compose seperatly .
+> **_NOTE:_**  Docker-Compose is pre-installed in Win/Mac OS after installing Docker, but in Linux OS you'll have to install Docker-Compose seperatly.
 
 - Before you run the application, you will need to add enviorment variables files, as mentioned below:
 
@@ -44,7 +44,7 @@ RMT_USER = < user in RMT_HOST >
 RMT_PASSWD = < password in RMT_USER >
 ```
 
-## Run The Application
+## Run The Application With Docker Compose
 
 As I used Docker-Compose, you won't need to download any dependecies, except those mentioned in "Installation" section.
 
@@ -59,3 +59,4 @@ docker-compose up
 # run the following command from the project directory
 docker-compose down
 ```
+> **_NOTE:_**  You can run the application with K8s as well, as described in kubernetes directory.
