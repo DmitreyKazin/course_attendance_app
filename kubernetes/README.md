@@ -3,9 +3,9 @@ This directory presents the yaml files for deploying course attendance applicati
 
 - **mysql-secrets-template** --> Secrets that contains the password for MySQL database.
 - **mysql-env.yaml** --> ConfigMap that contains MySQL environment variables.
-- **host-pv.yaml && host-pvc.yaml** --> Persistent volume and persistent volume claim.
-- **mysql-deployment.yaml && mysql-svc.yaml"** --> MySQL database deployment and service.
-- **flask-deployment.yaml && flask-svc.yaml** --> Course attendance application deployment and service.
+- **host-pv.yaml & host-pvc.yaml** --> Persistent volume and persistent volume claim.
+- **mysql-deployment.yaml & mysql-svc.yaml"** --> MySQL database deployment and service.
+- **flask-deployment.yaml & flask-svc.yaml** --> Course attendance application deployment and service.
 
 ## Installation
 
