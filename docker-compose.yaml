@@ -10,13 +10,19 @@ services:
       - ./env/mysql.env
     volumes:
       - data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psecret"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
   flask:
     image: dmitreykazin/course_attendance_app:latest
     container_name: flask-app
     ports:
       - "5000:5000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
 volumes:
   data:
