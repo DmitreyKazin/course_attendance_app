@@ -27,8 +27,8 @@ pipeline {
         }
 	stage ('Attach Env') {
 	    steps {
-		sh ''' sudo cp /home/dimak/course_attendance_app/.env workspace_path		
-	    	       sudo cp -r /home/dimak/course_attendance_app/env workspace_path
+		sh ''' sudo cp /home/dimak/course_attendance_app/.env ${env.workspace_path}		
+	    	       sudo cp -r /home/dimak/course_attendance_app/env ${env.workspace_path}
 		'''
 		}
 	}
