@@ -29,8 +29,7 @@ pipeline {
 		fileOperations([fileCopyOperation(
 		    excludes: '',
 		    flattenFiles: false,
-		    includes: ['/home/dimak/course_attendance_app/.env',
-			       '/home/dimak/course_attendance_app/env/mysql-env'],
+		    includes: '/home/dimak/course_attendance_app/.env',
 		    targetLocation: '/var/lib/jenkins/workspace/course_attendance_app_pipeline'
 		)])		
 	    }
