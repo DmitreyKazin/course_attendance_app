@@ -3,6 +3,7 @@ pipeline {
     agent any
     
     environment {
+	workspace_path = '/var/lib/jenkins/workspace/course_attendance_app_pipeline'
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
         dockerHubRegistryCredential = '3e0b51f4-078c-45be-aae6-46b7b853a4d1'
         dockerImage = ''
@@ -26,13 +27,10 @@ pipeline {
         }
 	stage ('Attach Env') {
 	    steps {
-		fileOperations([fileCopyOperation(
-		    excludes: '',
-		    flattenFiles: false,
-		    includes: '/home/dimak/course_attendance_app/*.env',
-		    targetLocation: '/var/lib/jenkins/workspace/course_attendance_app_pipeline'
-		)])		
-	    }
+		sh ''' cp /home/dimak/course_attendance_app/.env workspace_path		
+	    	       cp /home/dimak/course_attendance_app/env workspace_path
+		'''
+		}
 	}
         stage ('Build Image') {
             steps {
