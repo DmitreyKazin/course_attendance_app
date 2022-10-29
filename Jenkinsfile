@@ -44,7 +44,7 @@ pipeline {
 	   steps {
 	       sh ''' docker-compose up -d --build 
 	              HTTP_STATUS = $(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/)
-		      if [[ HTTP_STATUS -eq 200 ]]; then
+		      if [[ $HTTP_STATUS -eq 200 ]]; then
 				echo "TEST RESULT: SUCCESS"
 		      else
 				echo "TEST RESULT: FAILURE"
