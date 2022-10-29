@@ -49,10 +49,6 @@ pipeline {
                 script { 
                     dockerImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
-		echo ''' ********************* \
-                             BUILD SUCCESS \
-                         *********************
-                '''
                 }
             }
         }
