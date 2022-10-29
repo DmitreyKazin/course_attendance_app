@@ -13,10 +13,6 @@ pipeline {
     stages {
         stage ('Git Checkout') {
             steps {
-		echo ''' *********************** \
-			   CHECKOUT START \
-		      	 ***********************
-		'''
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: 'master']], 
@@ -26,10 +22,6 @@ pipeline {
                     userRemoteConfigs: [[credentialsId: gitHubCredential,
                                          url: gitHubURL]]
                 ])
-		echo ''' *********************** \
-                           CHECKOUT SUCCESS \
-                         ***********************
-                '''
             }
         }
 	stage ('Attach Env Files') {
@@ -42,10 +34,6 @@ pipeline {
 	}
         stage ('Build Image') {
             steps {
-		echo ''' ******************* \
-                             BUILD START \
-                         *******************
-                '''
                 script { 
                     dockerImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
@@ -57,11 +45,9 @@ pipeline {
 	       sh ''' docker-compose up -d --build 
 	              HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/)
 		      if [ $HTTP_STATUS -eq 200 ]; then
-				echo ''' ******************** \
-                           		     TEST SUCCESS \
-                                         ********************
-                     		'''
-		      else
+				echo "TEST: SUCCESS"
+		      else	
+				echo "TEST: FAIL"
 				exit 1
 		      fi
 	       '''
@@ -69,19 +55,11 @@ pipeline {
 	}
         stage ('Deploy to DockerHub') {
             steps {
-	       echo ''' ******************** \
-                            DEPLOY START \
-                        ********************
-               '''
                script {
                     docker.withRegistry( '', dockerHubRegistryCredential ) {
                         dockerImage.push()
                     }
                 }
-		echo ''' ********************** \
-                             DEPLOY SUCCESS \
-                         **********************
-                '''
             }
         }
         stage ('Clean Memory') {
