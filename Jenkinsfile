@@ -28,6 +28,7 @@ pipeline {
 	    steps {
 	        sh ''' sudo cp /home/dimak/course_attendance_app/.env /var/lib/jenkins/workspace/course_attendance_app_pipeline/		
 	    	       sudo cp -r /home/dimak/course_attendance_app/env /var/lib/jenkins/workspace/course_attendance_app_pipeline/
+		       sudo chmod 777 /var/lib/jenkins/workspace/course_attendance_app/env
 		'''
 		}
 	}
