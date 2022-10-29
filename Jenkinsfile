@@ -42,7 +42,7 @@ pipeline {
         }
 	stage ('Health Check') {
 	   steps {
-	       sh ''' docker-compose up --build 
+	       sh ''' docker-compose up -d --build 
 	              curl --fail http://localhost:5000/ || exit 1
 	       '''
 	   }
