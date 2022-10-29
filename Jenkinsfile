@@ -3,7 +3,6 @@ pipeline {
     agent any
     
     environment {
-	workspace_path = '/var/lib/jenkins/workspace/course_attendance_app_pipeline'
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
         dockerHubRegistryCredential = '3e0b51f4-078c-45be-aae6-46b7b853a4d1'
         dockerImage = ''
@@ -25,7 +24,7 @@ pipeline {
                 ])
             }
         }
-	stage ('Attach Env') {
+	stage ('Attach Env Files') {
 	    steps {
 	        sh ''' sudo cp /home/dimak/course_attendance_app/.env /var/lib/jenkins/workspace/course_attendance_app_pipeline/		
 	    	       sudo cp -r /home/dimak/course_attendance_app/env /var/lib/jenkins/workspace/course_attendance_app_pipeline/
@@ -40,6 +39,15 @@ pipeline {
                 }
             }
         }
+	stage ('Health Check') {
+	   steps {
+	       sh ''' docker-compose up --build 
+	              curl http://127.0.0.1:5000/
+		      curl http://127.0.0.1:5000/all
+		      curl http://127.0.0.1:5000/temp
+	       '''
+	   }
+	}
         stage ('Deploy to DockerHub') {
             steps {
                script {
