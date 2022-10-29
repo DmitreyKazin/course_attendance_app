@@ -42,9 +42,7 @@ pipeline {
 	stage ('Health Check') {
 	   steps {
 	       sh ''' docker-compose up --build 
-	              curl http://127.0.0.1:5000/
-		      curl http://127.0.0.1:5000/all
-		      curl http://127.0.0.1:5000/temp
+	              curl --fail http://localhost:5000/ || exit 1
 	       '''
 	   }
 	}
