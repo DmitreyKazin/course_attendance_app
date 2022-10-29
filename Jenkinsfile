@@ -13,6 +13,10 @@ pipeline {
     stages {
         stage ('Git Checkout') {
             steps {
+		echo ''' *********************** \
+			   CHECKOUT START \
+		      	 ***********************
+		     '''
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: 'master']], 
