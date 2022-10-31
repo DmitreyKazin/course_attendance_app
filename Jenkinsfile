@@ -24,14 +24,6 @@ pipeline {
                 ])
             }
         }
-	#stage ('Attach Env Files') {
-	#    steps {
-	#        sh ''' cp /home/ec2-user/env_files/.env /var/lib/jenkins/workspace/release-pipeline/		
-	#    	       cp -r /home/ec2-user/env_files/env /var/lib/jenkins/workspace/release-pipeline/
-	#	       chmod 777 /var/lib/jenkins/workspace/release-pipeline/env
-	#	'''
-	#	}
-	#}
         stage ('Build Image') {
             steps {
                 script { 
