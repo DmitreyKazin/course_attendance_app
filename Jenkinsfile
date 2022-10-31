@@ -1,10 +1,10 @@
 pipeline {
-    agent {
-	label 'Linux2'
-    }
+    
+    agent any
+    
     environment {
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
-        dockerHubRegistryCredential = '3e0b51f4-078c-45be-aae6-46b7b853a4d1'
+        dockerHubRegistryCredential = '99f93f2b-67ae-4bf9-9c2b-c5f02dab9cdd'
         dockerImage = ''
         gitHubCredential = 'a0bb4e47-f112-4b84-9e36-1fb1d2239d7e'
         gitHubURL = 'https://github.com/DmitreyKazin/course_attendance_app.git'
@@ -24,14 +24,14 @@ pipeline {
                 ])
             }
         }
-	stage ('Attach Env Files') {
-            steps {
-                sh ''' cp /home/ec2-user/env_files/.env /home/ec2-user/work>
-                       cp -r /home/ec2-user/env_files/env /home/ec2-user/wor>
-                       chmod 777 /home/ec2-user/workspace/release-pipeline/e>
-                '''
-               }
-        }
+	#stage ('Attach Env Files') {
+	#    steps {
+	#        sh ''' cp /home/ec2-user/env_files/.env /var/lib/jenkins/workspace/release-pipeline/		
+	#    	       cp -r /home/ec2-user/env_files/env /var/lib/jenkins/workspace/release-pipeline/
+	#	       chmod 777 /var/lib/jenkins/workspace/release-pipeline/env
+	#	'''
+	#	}
+	#}
         stage ('Build Image') {
             steps {
                 script { 
