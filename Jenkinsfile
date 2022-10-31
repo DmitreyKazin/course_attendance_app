@@ -27,8 +27,8 @@ pipeline {
 	stage ('Attach Env Files') {
 	    steps {
 	        sh ''' 		
-	    	       sudo cp -r /home/ec2-user/env_files/env /home/ec2-user/workspace/release-pipeline/
-		       sudo chmod 777 /home/ec2-user/workspace/release-pipeline/env
+	    	       cp -r /home/ec2-user/workspace/env_files/env /home/ec2-user/workspace/release-pipeline/
+		       chmod 777 /home/ec2-user/workspace/release-pipeline/env
 		'''
 		}
 	}
