@@ -26,9 +26,9 @@ pipeline {
         }
 	stage ('Attach Env Files') {
 	    steps {
-	        sh ''' sudo cp /home/dimak/course_attendance_app/.env /var/lib/jenkins/workspace/course_attendance_app_pipeline/		
-	    	       sudo cp -r /home/dimak/course_attendance_app/env /var/lib/jenkins/workspace/course_attendance_app_pipeline/
-		       sudo chmod 777 /var/lib/jenkins/workspace/course_attendance_app_pipeline/env
+	        sh ''' sudo cp /home/ec2-user/env_files/.env /var/lib/jenkins/workspace/release-pipeline/		
+	    	       sudo cp -r /home/ec2-user/env_files/env /var/lib/jenkins/workspace/release-pipeline/
+		       sudo chmod 777 /var/lib/jenkins/workspace/release-pipeline/env
 		'''
 		}
 	}
