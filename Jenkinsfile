@@ -6,7 +6,7 @@ pipeline {
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
         dockerHubRegistryCredential = '99f93f2b-67ae-4bf9-9c2b-c5f02dab9cdd'
         dockerImage = ''
-        gitHubCredential = 'a0bb4e47-f112-4b84-9e36-1fb1d2239d7e'
+        gitHubCredential = '9c934149-1068-4763-8744-80e8ebafa24f'
         gitHubURL = 'https://github.com/DmitreyKazin/course_attendance_app.git'
     }
     
