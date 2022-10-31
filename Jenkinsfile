@@ -1,6 +1,8 @@
 pipeline {
     
-    agent any
+    agent {
+	label 'Linux2'
+    }
     
     environment {
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
