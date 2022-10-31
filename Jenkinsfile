@@ -26,9 +26,9 @@ pipeline {
         }
 	stage ('Attach Env Files') {
 	    steps {
-	        sh ''' sudo cp /home/ec2-user/env_files/.env /var/lib/jenkins/workspace/release-pipeline/		
-	    	       sudo cp -r /home/ec2-user/env_files/env /var/lib/jenkins/workspace/release-pipeline/
-		       sudo chmod 777 /var/lib/jenkins/workspace/release-pipeline/env
+	        sh ''' cp /home/ec2-user/env_files/.env /var/lib/jenkins/workspace/release-pipeline/		
+	    	       cp -r /home/ec2-user/env_files/env /var/lib/jenkins/workspace/release-pipeline/
+		       chmod 777 /var/lib/jenkins/workspace/release-pipeline/env
 		'''
 		}
 	}
