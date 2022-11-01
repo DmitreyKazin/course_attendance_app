@@ -22,12 +22,12 @@ For more details, watch the video: [click here](https://vimeo.com/756572554#t=67
 
 To launch Jenkins, I used two AWS EC2 servers, both builded from Linux 2 AMI. One of the servers is acting as the master, and the second one is a slave.
 The CI/CD pipeline is running on jenkins slave (test machine), and here is the breakdown for the steps:
-- 1) Git checkout --> Clone GitHub rpeository.
-- 2) Attach Env Files --> Copyies environment files into the workspace.
-- 3) Build Images --> Two docker images are builded, one with "latest" tag and the second with job build number as a tag.
-- 4) Health Check --> Gets HTTP response code for main application route.
-- 5) Push to DockerHub --> Pushes both images into DockerHub repository.
-- 6) Deploy to Production --> By using 'deploy.sh' bash script the new version is deployed to the production server (AWS EC2 server).
+- Git checkout --> Clone GitHub rpeository.
+- Attach Env Files --> Copyies environment files into the workspace.
+- Build Images --> Two docker images are builded, one with "latest" tag and the second with job build number as a tag.
+- Health Check --> Gets HTTP response code for main application route.
+- Push to DockerHub --> Pushes both images into DockerHub repository.
+- Deploy to Production --> By using 'deploy.sh' bash script the new version is deployed to the production server (AWS EC2 server).
 
 ## Installation For Docker Compose
 
