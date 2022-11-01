@@ -31,7 +31,7 @@ db_connection = mysql.connector.connect(
 			        host='mysql',
 				port="3306",
 			        user=os.getenv('DB_USER'),
-                    password=os.getenv('DB_PASS'),
+                                password=os.getenv('DB_PASS'),
 			        database=os.getenv('DB_NAME')
 		        )
 
