@@ -36,9 +36,7 @@ pipeline {
 	}
         stage ('Build Images') {
             steps {
-		echo """***********************************************  
-		        BUILD: ${BUILD_TAG} STARTED
-		"""
+		echo "BUILD STARTED: ${BUILD_TAG}"
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
@@ -63,7 +61,7 @@ pipeline {
 	       '''
 	   }
 	}
-        stage ('Deploy to DockerHub') {
+        stage ('Push to DockerHub') {
             steps {
                script {
                     docker.withRegistry( '', dockerHubRegistryCredential ) {
@@ -71,9 +69,7 @@ pipeline {
 			dockerTagImage.push()
                     }
                 }
-		echo """********************************************
-			BUILD: SUCCESS
-		"""
+		echo "BUILD SUCCES: ${BUILD_TAG}"
             }
         }
 	stage ('Deploy to Production') {
