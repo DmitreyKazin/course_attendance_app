@@ -36,7 +36,7 @@ pipeline {
 	}
         stage ('Build Images') {
             steps {
-		echo """*****************************************************\n  
+		echo """***********************************************  
 		        BUILD: ${BUILD_TAG} STARTED
 		"""
                 script { 
