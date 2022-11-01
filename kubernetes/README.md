@@ -13,7 +13,10 @@ This directory presents the yaml files for deploying course attendance applicati
 - To install minikube along with kubectl on Ubuntu 22.04 OS, follow the instructions provided [here](https://www.linuxtechi.com/how-to-install-minikube-on-ubuntu/).
 - Before you run the application, please fill up **mysql-secrets-template.yaml** as described in the file.
 ## Run The Application
-
+- **Create minikube cluster:**
+```sh
+minikube start
+```
 - **Apply configurations:**
 ```sh
 # config environment variables and secrets
