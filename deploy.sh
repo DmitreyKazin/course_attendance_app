@@ -4,10 +4,10 @@ echo "DEPLOY TO PRODUCTION: STARTED"
 
 # copying docker-compose-prod.yaml to production server
 cd /home/ec2-user/.ssh
-scp -i "id_rsa" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yaml ec2-user@ex2-35-78-75-153.ap-northeast-1.compute.amazonaws.com:/home/ec2-user/
+scp -i "app-production.pem" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yaml ec2-user@ex2-35-78-75-153.ap-northeast-1.compute.amazonaws.com:/home/ec2-user/
 
 # login with ssh to ec2-user on production server
-ssh -i "id_rsa" ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com
+ssh -i "app-production.pem" ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com
 
 # delete existing containers & images
 docker ps -aq | xargs docker rm -f
