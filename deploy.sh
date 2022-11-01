@@ -6,17 +6,28 @@ echo "DEPLOY TO PRODUCTION: STARTED"
 cd /home/ec2-user/.ssh
 scp -i "id_rsa" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yaml ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com:/home/ec2-user/
 
-# login with ssh to ec2-user on production server
-#ssh -i "app-production.pem" ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com
+# login with ssh to ec2-user on production server & rm images and containers
+ssh -i "id_rsa" \
+ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com \
+-o BatchMode=yes -o StrictHostKeyChecking=no \
+"docker ps -aq | xargs docker rm -f"
 
-# delete existing containers & images
-#docker ps -aq | xargs docker rm -f
-#docker images -q | xargs docker rmi -f
+ssh -i "id_rsa" \
+ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com \
+-o BatchMode=yes -o StrictHostKeyChecking=no \
+"docker images -q | xargs docker rmi -f"
 
-# bring the application up
-#cd /home/ec2-user
-#docker-compose -f docker-compose-prod.yaml -d --build
+# login with ssh to ec2-user on production server & bring the application up
+ssh -i "id_rsa" \
+ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com \
+-o BatchMode=yes -o StrictHostKeyChecking=no \
+"cd /home/ec2-user"
 
-#echo "DEPLOY TO PRODCUTION: SUCCESS"
+ssh -i "id_rsa" \
+ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com \
+-o BatchMode=yes -o StrictHostKeyChecking=no \
+"docker-compose -f docker-compose-prod.yaml up -d --build"
+
+echo "DEPLOY TO PRODCUTION: SUCCESS"
 
 
