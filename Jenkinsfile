@@ -39,7 +39,7 @@ pipeline {
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
-		    dockerTagImage = docker.build(dockerHubRegistry + "${BUILD_NUMBER}",
+		    dockerTagImage = docker.build(dockerHubRegistry + ":${BUILD_NUMBER}",
 		    "-f ./Dockerfile-flask .")
                 }
             }
