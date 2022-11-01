@@ -44,7 +44,9 @@ pipeline {
 	stage ('Health Check') {
 	   steps {
 	       sh ''' docker-compose up -d --build 
+		      sleep 15
 	              curl -o - -I http://localhost:5000/
+		      docker-compose down
 	       '''
 	   }
 	}
@@ -56,13 +58,6 @@ pipeline {
                     }
                 }
             }
-        }
-        stage ('Clean Memory') {
-            steps {
-                sh ''' docker ps -aq | xargs docker rm -f
-		       docker images -q | xargs docker rmi -f
-		''' 
-            }	      
         }
     }
     
