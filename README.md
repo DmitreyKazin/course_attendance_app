@@ -1,12 +1,12 @@
 # Course Attendance Application
+
 This application allows to manage and monitor student attendance in webex meetings.
 - Flask is used as the web application framework.
 - Jinja2 is used as a template wraper for html pages.
 - MySQL was chosen to be the database provider.
-- Jenkins is used as CI/CD pipeline. The pipeline checkouts GitHub repository, builds an Image, pushes it to DockerHub, cleans up memory, and sends email at the end.
+- Jenkins is used as CI/CD pipeline. 
 - Docker-compose and K8s are used as Orchestration tools for docker containers. Choose one of them to run the application.
 
-For more details, watch the video: [click here](https://vimeo.com/756572554#t=67)
 ## Application Routes
 
 - **"/"** --> Main route, shows the managable table called "Stable Table".
@@ -15,6 +15,19 @@ For more details, watch the video: [click here](https://vimeo.com/756572554#t=67
 - **"/add_student"** --> Add a new student to "Stable Table".
 - **"/edit/<name>"** --> Edit a record for specific student in "Stable Table".
 - **"/delete/<name>"** --> Delere a record for specific student in "Stable Table".
+
+For more details, watch the video: [click here](https://vimeo.com/756572554#t=67)
+
+## CI/CD - Jenkins
+
+To launch Jenkins, I used two AWS EC2 servers, both builded from Linux 2 AMI. One of the servers is acting as the master, and the second one is a slave.
+The CI/CD pipeline is running on jenkins slave (test machine), and here is the breakdown for the steps:
+- 1) Git checkout --> Clone GitHub rpeository.
+- 2) Attach Env Files --> Copyies environment files into the workspace.
+- 3) Build Images --> Two docker images are builded, one with "latest" tag and the second with job build number as a tag.
+- 4) Health Check --> Gets HTTP response code for main application route.
+- 5) Push to DockerHub --> Pushes both images into DockerHub repository.
+- 6) Deploy to Production --> By using 'deploy.sh' bash script the new version is deployed to the production server (AWS EC2 server).
 
 ## Installation For Docker Compose
 
