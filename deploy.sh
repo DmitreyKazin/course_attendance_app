@@ -18,7 +18,7 @@ ec2-user@172.31.7.202 \
 << EOF
 	cd /home/ec2-user/
 	docker-compose -f docker-compose-prod.yaml down
-	docker-compose -f docker-compose-prod.yaml up -d --build
+	docker-compose -f docker-compose-prod.yaml up --build
 EOF
 
 echo "DEPLOY TO PRODCUTION: SUCCESS"
