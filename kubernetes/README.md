@@ -25,7 +25,7 @@ minikube start
 - **Apply configurations:**
 ```sh
 # config environment variables and secrets
-kubectl apply -f=mysql-secrets.yaml,mysql-env.yaml
+kubectl apply -f=mysql-secrets-template.yaml,mysql-env.yaml
 # config pv and pvc
 kubectl apply -f=host-pv.yaml, host-pvc.yaml
 # config mysql deployment and service
