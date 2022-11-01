@@ -56,6 +56,7 @@ pipeline {
 		      else
 				echo "TEST:FAIL"
 				exit 1
+		      fi
 	       '''
 	   }
 	}
