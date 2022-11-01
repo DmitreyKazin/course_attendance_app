@@ -39,7 +39,7 @@ pipeline {
 		echo """*****************************************************\n  
 		                    BUILD: ${BUILD_TAG} STARTED\n 
 			*****************************************************
-		"""
+		""".stripIndent()
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
