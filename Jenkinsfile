@@ -36,6 +36,10 @@ pipeline {
 	}
         stage ('Build Images') {
             steps {
+		echo """***************************************************** \ 
+				    BUILD: ${BUILD_TAG} STARTED
+			*****************************************************
+		"""
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
