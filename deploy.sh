@@ -5,15 +5,15 @@ echo "DEPLOY TO PRODUCTION: START"
 # copying docker-compose-prod.yaml to production server
 cd /home/ec2-user/.ssh
 scp -i "id_rsa" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yaml \
-ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com:/home/ec2-user/
+ec2-user@172.31.7.202:/home/ec2-user/
 
 # copying mysql-env
 scp -i "id_rsa" -r /home/ec2-user/workspace/release-pipeline/env/ \
-ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com:/home/ec2-user/
+ec2-user@172.31.7.202:/home/ec2-user/
 
 # login with ssh to ec2-user on production server & cd ~
 ssh -i "id_rsa" \
-ec2-user@ec2-35-78-75-153.ap-northeast-1.compute.amazonaws.com \
+ec2-user@172.31.7.202 \
 -o BatchMode=yes -o StrictHostKeyChecking=no \
 << EOF
 	cd /home/ec2-user/
