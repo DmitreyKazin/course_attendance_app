@@ -36,7 +36,7 @@ pipeline {
 	}
         stage ('Build Images') {
             steps {
-		echo "BUILD STARTED: ${BUILD_TAG}"
+		echo "BUILD START: ${BUILD_TAG}"
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
@@ -55,7 +55,7 @@ pipeline {
 		      then
 		      		echo "TEST: SUCCES"
 		      else
-				echo "TEST:FAIL"
+				echo "TEST: FAIL"
 				exit 1
 		      fi
 	       '''
