@@ -37,9 +37,8 @@ pipeline {
         stage ('Build Images') {
             steps {
 		echo """*****************************************************\n  
-		                    BUILD: ${BUILD_TAG} STARTED\n 
-			*****************************************************
-		""".stripIndent()
+		        BUILD: ${BUILD_TAG} STARTED
+		"""
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
@@ -72,6 +71,9 @@ pipeline {
 			dockerTagImage.push()
                     }
                 }
+		echo """********************************************
+			BUILD: SUCCESS
+		"""
             }
         }
     }
