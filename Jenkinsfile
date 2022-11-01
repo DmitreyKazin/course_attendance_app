@@ -50,7 +50,7 @@ pipeline {
 		      sleep 15
 	              HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/`
 		      docker-compose down
-		      if [ HTTP_STATUS = 200 ];
+		      if [[ HTTP_STATUS = "200" ]];
 		      then
 		      		echo "TEST: SUCCES"
 		      else
