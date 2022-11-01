@@ -30,7 +30,6 @@ pipeline {
 	    steps {
 	        sh ''' cp /home/ec2-user/workspace/env_files/.env /home/ec2-user/workspace/release-pipeline/		
 	    	       cp -r /home/ec2-user/workspace/env_files/env /home/ec2-user/workspace/release-pipeline/
-		       chmod 777 /home/ec2-user/workspace/release-pipeline/env
 		'''
 		}
 	}
@@ -44,7 +43,7 @@ pipeline {
         }
 	stage ('Health Check') {
 	   steps {
-	       sh ''' docker-compose up --build 
+	       sh ''' docker-compose up -d --build 
 	              curl -o - -I http://localhost:5000/
 	       '''
 	   }
