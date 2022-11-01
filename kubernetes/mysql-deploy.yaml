@@ -14,8 +14,8 @@ spec:
         app: mysql
     spec:
       containers:
-        - name: mysql
-          image: mysql:8.0
+        - image: mysql:8.0-oracle
+          name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
