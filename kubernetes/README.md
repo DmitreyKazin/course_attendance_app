@@ -11,7 +11,12 @@ This directory presents the yaml files for deploying course attendance applicati
 
 - This project runs on a single node K8s cluster, minikube.
 - To install minikube along with kubectl on Ubuntu 22.04 OS, follow the instructions provided [here](https://www.linuxtechi.com/how-to-install-minikube-on-ubuntu/).
-- Before you run the application, please fill up **mysql-secrets-template.yaml** as described in the file.
+- Before you run the application, please fill up **mysql-secrets-template.yaml** with encoded password for the mysql root account.
+  To encode password use this cmd:
+  ```sh
+  echo -n 'password' | base64
+  ```
+
 ## Run The Application
 - **Create minikube cluster:**
 ```sh
