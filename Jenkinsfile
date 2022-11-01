@@ -76,6 +76,11 @@ pipeline {
 		"""
             }
         }
+	stage ('Deploy to Production') {
+	    steps {
+	    	sh './deploy.sh'
+            }
+	}
     }
     
     post {
