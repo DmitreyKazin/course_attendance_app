@@ -7,7 +7,8 @@ pipeline {
     environment {
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
         dockerHubRegistryCredential = '99f93f2b-67ae-4bf9-9c2b-c5f02dab9cdd'
-        dockerImage = ''
+        dockerLatestImage = ''
+	dockerTagImage = ''
         gitHubCredential = '9c934149-1068-4763-8744-80e8ebafa24f'
         gitHubURL = 'https://github.com/DmitreyKazin/course_attendance_app.git'
     }
@@ -33,11 +34,13 @@ pipeline {
 		'''
 		}
 	}
-        stage ('Build Image') {
+        stage ('Build Images') {
             steps {
                 script { 
-                    dockerImage = docker.build(dockerHubRegistry + ":latest",
+                    dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
+		    dockerTagImage = docker.build(dockerHubRegistry + "${BUILD_NUMBER}",
+		    "-f ./Dockerfile-flask .")
                 }
             }
         }
@@ -54,7 +57,8 @@ pipeline {
             steps {
                script {
                     docker.withRegistry( '', dockerHubRegistryCredential ) {
-                        dockerImage.push()
+                        dockerLatestImage.push()
+			dockerTagImage.push()
                     }
                 }
             }
