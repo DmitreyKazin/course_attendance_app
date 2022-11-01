@@ -1,0 +1,33 @@
+---
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psecret"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+  flask:
+    image: dmitreykazin/course_attendance_app:latest
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: curl --fail http://localhost:5000/ || exit 1
+      interval: 60s
+      retries: 3
+      start_period: 20s
+      timeout: 10s
+volumes:
+  data:
