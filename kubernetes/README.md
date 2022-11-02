@@ -41,3 +41,7 @@ minikube service flask
 ```sh
 kubectl delete -f=mysql-secrets.yaml,mysql-evn.yaml,host-pv.yaml,host-pvc.yaml,mysql-deployment.yaml,mysql-svc.yaml,flask-deployment.yaml,flask-svc.yaml
 ```
+- **Delete minikube cluster:**
+```sh
+minikube delete
+```
