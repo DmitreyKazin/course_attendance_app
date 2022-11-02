@@ -4,3 +4,4 @@ Dockerfile-flask
 docker-compose.yaml
 Jenkinsfile
 kubernetes/
+deploy.sh
