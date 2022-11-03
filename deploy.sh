@@ -18,7 +18,6 @@ ec2-user@172.31.7.202 \
 << EOF
 	cd /home/ec2-user/
 	docker-compose -f docker-compose-prod.yaml down
-	docker ps -aq | xargs docker rm -f
 	docker images -q | xargs docker rmi -f
 	docker-compose -f docker-compose-prod.yaml up -d --build
 EOF
