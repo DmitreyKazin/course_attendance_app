@@ -17,13 +17,13 @@ pipeline {
         stage ('Git Checkout') {
             steps {
 	        println """ 
-                      ********************************************************
-                                            JOB START
+                        ********************************************************
+                                             JOB START
 
-                      JOB: ${JOB_NAME}
-                      RUNNING ON: ${NODE_NAME}
-                      EXECUTER: ${EXECUTOR_NUMBER}
-                      ********************************************************
+                        JOB: ${JOB_NAME}
+                        RUNNING ON: ${NODE_NAME}
+                        EXECUTER: ${EXECUTOR_NUMBER}
+                        ********************************************************
                 """.stripIndent()
                 checkout([
                     $class: 'GitSCM', 
@@ -106,7 +106,6 @@ pipeline {
 	    println """
                     ********************************************************
                     JOB ${currentBuild.currentResult}
-		    MORE DETAILS: ${env.BUILD_URL}
                     ********************************************************
             """.stripIndent()
             emailext to: "kazindmitrey@gmail.com",
