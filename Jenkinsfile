@@ -44,16 +44,14 @@ pipeline {
 		}
 	}
         stage ('Build Images') {
-	    println """
+            steps {
+		println """
                     ********************************************************
                                            BUILD START
 
                     BUILD TAG: ${BUILD_TAG}
                     ********************************************************
                 """.stripIndent()
-
-            steps {
-		echo "BUILD START: ${BUILD_TAG}"
                 script { 
                     dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
                     "-f ./Dockerfile-flask .")
@@ -64,6 +62,13 @@ pipeline {
         }
 	stage ('Health Check') {
 	   steps {
+               println """
+                       ********************************************************
+                                           HEALTH CHECK START
+
+                       CREATING CONTAINERS AND SENDING REQUEST...
+                       ********************************************************
+               """.stripIndent()
 	       sh ''' docker-compose up -d --build 
 		      sleep 15
 	              HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/`
@@ -86,12 +91,7 @@ pipeline {
                         dockerLatestImage.push()
 			dockerTagImage.push()
                     }
-                }
-		println  """ 
-		         ******************************************************
-                         BUILD SUCCES: ${env.BUILD_TAG}
-			 ****************************************************
-		""".stripIndent()
+               }
             }
         }
 	stage ('Deploy to Production') {
