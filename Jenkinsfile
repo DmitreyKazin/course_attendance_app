@@ -50,8 +50,7 @@ pipeline {
 	       sh ''' docker-compose up -d --build 
 		      sleep 15
 	              HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/`
-		      docker-compose down
-		      docker images -q | xargs docker rmi -f 
+		      docker-compose down 
 		      if [ $HTTP_STATUS -eq 200 ];
 		      then
 		      		echo "TEST: SUCCES"
