@@ -44,6 +44,14 @@ pipeline {
 		}
 	}
         stage ('Build Images') {
+	    println """
+                    ********************************************************
+                                           BUILD START
+
+                    BUILD TAG: ${BUILD_TAG}
+                    ********************************************************
+                """.stripIndent()
+
             steps {
 		echo "BUILD START: ${BUILD_TAG}"
                 script { 
@@ -79,7 +87,11 @@ pipeline {
 			dockerTagImage.push()
                     }
                 }
-		echo "BUILD SUCCES: ${BUILD_TAG}"
+		println  """ 
+		         ******************************************************
+                         BUILD SUCCES: ${env.BUILD_TAG}
+			 ****************************************************
+		""".stripIndent()
             }
         }
 	stage ('Deploy to Production') {
@@ -91,6 +103,12 @@ pipeline {
     
     post {
         always {
+	    println """
+                    ********************************************************
+                    JOB ${currentBuild.currentResult}
+		    MORE DETAILS: ${env.BUILD_URL}
+                    ********************************************************
+            """.stripIndent()
             emailext to: "kazindmitrey@gmail.com",
                      subject: "Jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
                      body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
