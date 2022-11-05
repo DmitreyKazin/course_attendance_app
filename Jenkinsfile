@@ -16,6 +16,15 @@ pipeline {
     stages {
         stage ('Git Checkout') {
             steps {
+	        println """ 
+                      ********************************************************
+                                            JOB START
+
+                      JOB: ${JOB_NAME}
+                      RUNNING ON: ${NODE_NAME}
+                      EXECUTER: ${EXECUTOR_NUMBER}
+                      ********************************************************
+                """.stripIndent()
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: 'master']], 
