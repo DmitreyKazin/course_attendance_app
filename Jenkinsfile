@@ -67,7 +67,8 @@ pipeline {
 	}
 	stage ('Smoke Test') {
 	    steps {
-	        sh ''' python3 -m pytest --html=pytest_reports/pytest-report.html --self-contained-html
+	        sh ''' docker exec -it flask \ 
+                       python3 -m pytest --html=pytest_reports/pytest-report.html --self-contained-html
 		       docker-compose down
 	        '''
             }
