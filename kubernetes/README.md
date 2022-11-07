@@ -1,11 +1,11 @@
 # Orchastretation With K8s
 This directory presents the yaml files for deploying course attendance application along with MySQL database.
 
-- **mysql-secrets-template** --> Secrets that contains the password for MySQL database.
-- **mysql-env.yaml** --> ConfigMap that contains MySQL environment variables.
-- **host-pv.yaml & host-pvc.yaml** --> Persistent volume and persistent volume claim.
-- **mysql-deployment.yaml & mysql-svc.yaml"** --> MySQL database deployment and service.
-- **flask-deployment.yaml & flask-svc.yaml** --> Course attendance application deployment and service.
+- **mysql-secrets-template.yml** --> Secrets that contains the password for MySQL database.
+- **mysql-env.yml** --> ConfigMap that contains MySQL environment variables.
+- **host-pv.yml & host-pvc.yml** --> Persistent volume and persistent volume claim.
+- **mysql-deployment.yml & mysql-svc.yml"** --> MySQL database deployment and service.
+- **flask-deployment.yml & flask-svc.yml** --> Course attendance application deployment and service.
 
 ## Installation
 
@@ -25,13 +25,13 @@ minikube start
 - **Apply configurations:**
 ```sh
 # config environment variables and secrets
-kubectl apply -f=mysql-secrets-template.yaml,mysql-env.yaml
+kubectl apply -f=mysql-secrets-template.yml,mysql-env.yml
 # config pv and pvc
-kubectl apply -f=host-pv.yaml, host-pvc.yaml
+kubectl apply -f=host-pv.yml, host-pvc.yml
 # config mysql deployment and service
-kubectl apply -f=mysql-deployment.yaml,mysql-svc.yaml
+kubectl apply -f=mysql-deployment.yml,mysql-svc.yml
 # config flask app deployment and service
-kubectl apply -f=flask-deployment.yaml,flask-svc.yaml
+kubectl apply -f=flask-deployment.yml,flask-svc.yml
 ```
 - **Run the application:**
 ```sh
@@ -39,7 +39,7 @@ minikube service flask
 ```
 - **Stop the application:**
 ```sh
-kubectl delete -f=mysql-secrets.yaml,mysql-evn.yaml,host-pv.yaml,host-pvc.yaml,mysql-deployment.yaml,mysql-svc.yaml,flask-deployment.yaml,flask-svc.yaml
+kubectl delete -f=mysql-secrets.yml,mysql-evn.yml,host-pv.yml,host-pvc.yml,mysql-deployment.yml,mysql-svc.yml,flask-deployment.yml,flask-svc.yml
 ```
 - **Delete minikube cluster:**
 ```sh
