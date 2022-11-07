@@ -24,10 +24,11 @@ To launch Jenkins, I used two AWS EC2 servers, both builded from Linux 2 AMI. On
 The CI/CD pipeline is running on jenkins slave (test machine), and here is the breakdown for the steps:
 - Git checkout --> Clone GitHub rpeository.
 - Attach Env Files --> Copyies environment files into the workspace.
-- Build Images --> Two docker images are builded, one with "latest" tag and the second with job build number as a tag.
 - Health Check --> Gets HTTP response code for main application route.
+- Build Images --> Two docker images are builded, one with "latest" tag and the second with job build number as a tag.
 - Push to DockerHub --> Pushes both images into DockerHub repository.
-- Deploy to Production --> By using 'deploy.sh' bash script the new version is deployed to the production server (AWS EC2 server).
+- Deploy to Staging --> by using 'deploy.sh' bash script, the new version is deployed to the staging server (AES EC2 server).
+- Deploy to Production --> By using 'deploy.sh' bash script, the new version is deployed to the production server (AWS EC2 server).
 
 ## Installation For Docker Compose
 
