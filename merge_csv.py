@@ -31,7 +31,7 @@ def merge_all_csv(directory):
             session['Name'] = session['Name'].str.lower()
 
             # calculating total meeting time
-            meeting_start = datetime.strptime(session.loc[0, 'Meeting Start Time'].split('\"')[1], "%Y-%m-%d %H:%M:%S")
+            meeting_start = datetime.strptime(session.loc[(0, 'Meeting Start Time')].split('\"')[1], "%Y-%m-%d %H:%M:%S")
             meeting_end = datetime.strptime(session.loc[0, 'Meeting End Time'].split('\"')[1], "%Y-%m-%d %H:%M:%S")
             total_meeting_time = (meeting_end - meeting_start).total_seconds() / 60
             total_meetings_time += total_meeting_time
