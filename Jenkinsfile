@@ -43,23 +43,6 @@ pipeline {
 		'''
 		}
 	}
-        stage ('Build Images') {
-            steps {
-		println """
-                    ********************************************************
-                                           BUILD START
-
-                    BUILD TAG: ${BUILD_TAG}
-                    ********************************************************
-                """.stripIndent()
-                script { 
-                    dockerLatestImage = docker.build(dockerHubRegistry + ":latest",
-                    "-f ./Dockerfile-flask .")
-		    dockerTagImage = docker.build(dockerHubRegistry + ":${BUILD_NUMBER}",
-		    "-f ./Dockerfile-flask .")
-                }
-            }
-        }
 	stage ('Health Check') {
 	   steps {
                println """
@@ -84,6 +67,23 @@ pipeline {
 	       '''
 	   }
 	}
+	stage ('Build Images') {
+            steps {
+                println """
+                    ********************************************************
+                                           BUILD START
+
+                    BUILD TAG: ${BUILD_TAG}
+                    ********************************************************
+                """.stripIndent()
+                script {
+                    dockerLatestImage = docker.build(dockerHubRegistry + ":lat>
+                    "-f ./Dockerfile-flask .")
+                    dockerTagImage = docker.build(dockerHubRegistry + ":${BUIL>
+                    "-f ./Dockerfile-flask .")
+                }
+            }
+        }
         stage ('Push to DockerHub') {
             steps {
                script {
