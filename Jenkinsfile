@@ -77,9 +77,9 @@ pipeline {
                     ********************************************************
                 """.stripIndent()
                 script {
-                    dockerLatestImage = docker.build(dockerHubRegistry + ":latest
+                    dockerLatestImage = docker.build(dockerHubRegistry + ":latest"
                     "-f ./Dockerfile-flask .")
-                    dockerTagImage = docker.build(dockerHubRegistry + ":${BUILD_NUMBER}
+                    dockerTagImage = docker.build(dockerHubRegistry + ":${BUILD_NUMBER}"
                     "-f ./Dockerfile-flask .")
                 }
             }
