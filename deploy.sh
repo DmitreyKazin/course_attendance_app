@@ -39,6 +39,3 @@ ec2-user@${DEPLOY_ENV} \
 EOF
 
 echo "DEPLOY TO ${STAGE} ENVIRONMENT: SUCCESS"
-
-
-
