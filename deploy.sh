@@ -15,6 +15,7 @@ then
 else
 	echo "ERROR!!!\nONLY 'production' OR 'test' ARE ACCEPTED"
 	exit 1
+fi
 
 echo "DEPLOY TO ${STAGE} ENVIRONMENT: START"
 
