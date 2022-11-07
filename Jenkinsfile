@@ -43,7 +43,7 @@ pipeline {
 		'''
 		}
 	}
-	stage ('Health Check') {
+	stage ('Setup Test Env') {
 	   steps {
                println """
                        ********************************************************
@@ -52,9 +52,12 @@ pipeline {
                        CREATING CONTAINERS AND SENDING REQUEST...
                        ********************************************************
                """.stripIndent()
-	       sh ''' docker-compose up -d --build 
-		      sleep 15
-	              HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/`
+	       sh "docker-compose up -d --build"
+	      }
+        }
+	stage ('Health Check') {
+	    steps {
+	       sh ''' HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/`
 		      docker-compose down 
 		      if [ $HTTP_STATUS -eq 200 ];
 		      then
@@ -63,7 +66,6 @@ pipeline {
 				echo "TEST: FAIL"
 				exit 1
 		      fi
-		     
 	       '''
 	   }
 	}
