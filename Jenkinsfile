@@ -92,9 +92,14 @@ pipeline {
                }
             }
         }
+	stage ('Deploy to Staging') {
+	    steps {
+  	        sh './deploy.sh staging'
+	    }
+	}
 	stage ('Deploy to Production') {
 	    steps {
-	    	sh './deploy.sh'
+	    	sh './deploy.sh production'
             }
 	}
     }
