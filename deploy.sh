@@ -3,7 +3,7 @@
 # defining environment to deploy
 STAGE=${1}
 PROD_IP="172.31.7.202"
-STAGING_IP="172.31.57.116"
+STAGING_IP="172.31.47.116"
 DEPLOY_ENV=""
 
 if [ ${STAGE}=="production" ];
