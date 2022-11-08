@@ -34,9 +34,9 @@ ec2-user@$DEPLOY_ENV \
 -o BatchMode=yes -o StrictHostKeyChecking=no \
 << EOF
 cd /home/ec2-user/
-docker-compose -f docker-compose-prod.yaml down
+docker-compose -f docker-compose-prod.yml down
 docker images -q | xargs docker rmi -f
-docker-compose -f docker-compose-prod.yaml up -d --build
+docker-compose -f docker-compose-prod.yml up -d --build
 EOF
 
 echo "DEPLOY TO ${STAGE} ENVIRONMENT: SUCCESS"
