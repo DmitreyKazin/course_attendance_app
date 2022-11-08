@@ -94,7 +94,7 @@ pipeline {
         }
 	stage ('Deploy to Staging') {
 	    steps {
-  	        sh './deploy.sh staging'
+  	        sh './deploy.sh'
 	    }
 	}
 	stage ('Deploy to Production') {

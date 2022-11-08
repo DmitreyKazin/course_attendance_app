@@ -2,18 +2,15 @@
 
 # defining environment to deploy
 STAGE=${1}
-PROD_IP="172.31.7.202"
-STAGING_IP="172.31.47.116"
-DEPLOY_ENV=""
+PROD=172.31.7.202
+STAGING=172.31.47.116
+DEPLOY_ENV=''
 
-if [ ${STAGE}=="production" ];
+if [[ ${STAGE}=="production" ]]
 then
-	DEPLOY_ENV=${PROD_IP}
-elif [ ${STAGE}=="staging" ];
-then
-	DEPLOY_ENV=${STAGING_IP}
+	DEPLOY_ENV=${PROD}
 else
-	exit 1
+	DEPLOY_ENV=${STAGING}
 fi
 
 echo "DEPLOY TO ${STAGE} ENVIRONMENT: START"
@@ -27,7 +24,7 @@ ec2-user@${DEPLOY_ENV}:/home/ec2-user/
 scp -i "id_rsa" -r /home/ec2-user/workspace/release-pipeline/env/ \
 ec2-user@${DEPLOY_ENV}:/home/ec2-user/
 
-# login with ssh to ec2-user on production server & bring the application up
+# login with ssh to ec2-user & bring the application up
 ssh -i "id_rsa" \
 ec2-user@${DEPLOY_ENV} \
 -o BatchMode=yes -o StrictHostKeyChecking=no \
