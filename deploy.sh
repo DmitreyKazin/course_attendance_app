@@ -6,12 +6,12 @@ PROD_IP="172.31.7.202"
 STAGING_IP="172.31.47.116"
 DEPLOY_ENV=""
 
-if [ ${STAGE}=="production" ];
+if [ $STAGE=="production" ];
 then
-	DEPLOY_ENV=${PROD_IP}
-elif [ ${STAGE}=="staging" ];
+	DEPLOY_ENV=$PROD_IP
+elif [ $STAGE=="staging" ];
 then
-	DPELOY_ENV=${STAGING_IP}
+	DPELOY_ENV=$STAGING_IP
 else
 	echo "ERROR!!!\nONLY 'production' OR 'test' ARE ACCEPTED"
 	exit 1
@@ -22,15 +22,15 @@ echo "DEPLOY TO ${STAGE} ENVIRONMENT: START"
 # copying docker-compose-prod.yaml to production server
 cd /home/ec2-user/.ssh
 scp -i "id_rsa" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yml \
-ec2-user@${DEPLOY_ENV}:/home/ec2-user/
+ec2-user@$DEPLOY_ENV:/home/ec2-user/
 
 # copying mysql-env to production server
 scp -i "id_rsa" -r /home/ec2-user/workspace/release-pipeline/env/ \
-ec2-user@${DEPLOY_ENV}:/home/ec2-user/
+ec2-user@$DEPLOY_ENV:/home/ec2-user/
 
 # login with ssh to ec2-user on production server & bring the application up
 ssh -i "id_rsa" \
-ec2-user@${DEPLOY_ENV} \
+ec2-user@$DEPLOY_ENV \
 -o BatchMode=yes -o StrictHostKeyChecking=no \
 << EOF
 cd /home/ec2-user/
