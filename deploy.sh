@@ -9,13 +9,10 @@ DEPLOY_ENV=''
 if [ $STAGE=="production" ];
 then
 	DEPLOY_ENV=$PROD_IP
-	echo $DEPLOY_ENV
 elif [ $STAGE=="staging" ];
 then
 	DEPLOY_ENV=$STAGING_IP
-	echo $DEPLOY_ENV
 else
-	echo "ERROR!!!\nONLY 'production' OR 'test' ARE ACCEPTED"
 	exit 1
 fi
 
