@@ -94,11 +94,21 @@ pipeline {
         }
 	stage ('Deploy to Staging') {
 	    steps {
+		println """
+                       ********************************************************
+                                         DEPLOYING TO STAGING ENVIRONMENT...
+                       ********************************************************
+                """.stripIndent()
   	        sh 'bash ./deploy.sh staging'
 	    }
 	}
 	stage ('Deploy to Production') {
 	    steps {
+		println """
+                       ********************************************************
+                                         DEPLOYING TO PRODUCTION ENVIRONMENT...
+                       ********************************************************
+                """.stripIndent()
 	    	sh 'bash ./deploy.sh production'
             }
 	}
