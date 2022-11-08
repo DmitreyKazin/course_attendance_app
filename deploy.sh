@@ -6,11 +6,14 @@ PROD=172.31.7.202
 STAGING=172.31.47.116
 DEPLOY_ENV=''
 
-if [[ ${STAGE}=="production" ]]
+if [[ ${STAGE} == "production" ]]
 then
 	DEPLOY_ENV=${PROD}
-else
+elif [[ ${STAGE} == "staging" ]]
+then
 	DEPLOY_ENV=${STAGING}
+else
+	exit 1
 fi
 
 echo "DEPLOY TO ${STAGE} ENVIRONMENT: START"
