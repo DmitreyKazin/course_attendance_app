@@ -21,7 +21,7 @@ echo "DEPLOY TO ${STAGE} ENVIRONMENT: START"
 
 # copying docker-compose-prod.yaml to production server
 cd /home/ec2-user/.ssh
-scp -i "id_rsa" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yaml \
+scp -i "id_rsa" /home/ec2-user/workspace/release-pipeline/docker-compose-prod.yml \
 ec2-user@${DEPLOY_ENV}:/home/ec2-user/
 
 # copying mysql-env to production server
