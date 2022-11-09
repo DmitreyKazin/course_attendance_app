@@ -14,9 +14,10 @@ pipeline {
     }
     
     stages {
-        stage ('Git Checkout') {
-            steps {
-	        println """ 
+	parallel {
+            stage ('Git Checkout') {
+                steps {
+	            println """ 
                         ********************************************************
                                              JOB START
 
@@ -24,24 +25,25 @@ pipeline {
                         RUNNING ON: ${NODE_NAME}
                         EXECUTER: ${EXECUTOR_NUMBER}
                         ********************************************************
-                """.stripIndent()
-                checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: 'master']], 
-                    doGenerateSubmoduleConfigurations: false, 
-                    extensions: [[$class: 'CleanCheckout']], 
-                    submoduleCfg: [], 
-                    userRemoteConfigs: [[credentialsId: gitHubCredential,
-                                         url: gitHubURL]]
-                ])
-            }
-        }
-	stage ('Attach Env Files') {
-	    steps {
-	        sh ''' cp /home/ec2-user/workspace/env_files/.env /home/ec2-user/workspace/release-pipeline/		
-	    	       cp -r /home/ec2-user/workspace/env_files/env /home/ec2-user/workspace/release-pipeline/
-		'''
+                    """.stripIndent()
+                    checkout([
+                       $class: 'GitSCM', 
+                       branches: [[name: 'master']], 
+                       doGenerateSubmoduleConfigurations: false, 
+                       extensions: [[$class: 'CleanCheckout']], 
+                       submoduleCfg: [], 
+                       userRemoteConfigs: [[credentialsId: gitHubCredential,
+                                            url: gitHubURL]]
+                       ])
+                }
+          }
+	    stage ('Attach Env Files') {
+	        steps {
+	            sh ''' cp /home/ec2-user/workspace/env_files/.env /home/ec2-user/workspace/release-pipeline/		
+	    	           cp -r /home/ec2-user/workspace/env_files/env /home/ec2-user/workspace/release-pipeline/
+		    '''
 		}
+	    }
 	}
 	stage ('Health Test') {
 	   steps {
