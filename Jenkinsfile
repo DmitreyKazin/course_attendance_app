@@ -52,7 +52,7 @@ pipeline {
                        CREATING CONTAINERS AND SENDING REQUEST...
                        ********************************************************
                """.stripIndent()
-	       sh ''' docker-compose up -d --build
+	       sh ''' docker-compose up -d
 		      sleep 15
                       HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
 		      if [ $HTTP_STATUS -eq 200 ];
