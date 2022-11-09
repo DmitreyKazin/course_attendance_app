@@ -1,0 +1,16 @@
+---
+stages:
+  - health_test
+
+health_test:
+  image: docker/compose:alpine-1.29.2
+  services:
+    - docker:dind
+  stage: health_test
+  before_script:
+    - apk --no-cache add curl
+  script:
+    - docker-compose down
+    - docker-compose up --build
+    - curl http://127.0.0.1:5000/
+
