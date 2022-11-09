@@ -15,7 +15,8 @@ pipeline {
     
     stages {
         stage ('Prepare Code Env') {
-            println """ 
+            steps {
+                println """ 
                         ********************************************************
                                              JOB START
 
@@ -23,18 +24,21 @@ pipeline {
                         RUNNING ON: ${NODE_NAME}
                         EXECUTER: ${EXECUTOR_NUMBER}
                         ********************************************************
-            """.stripIndent()
+                """.stripIndent()
+            }
             parallel {
                 stage ('Git Checkout') {
-                    checkout([
-                       $class: 'GitSCM', 
-                       branches: [[name: 'master']], 
-                       doGenerateSubmoduleConfigurations: false, 
-                       extensions: [[$class: 'CleanCheckout']], 
-                       submoduleCfg: [], 
-                       userRemoteConfigs: [[credentialsId: gitHubCredential,
-                                            url: gitHubURL]]
-                       ])
+                    steps {
+                        checkout([
+                            $class: 'GitSCM', 
+                            branches: [[name: 'master']], 
+                            doGenerateSubmoduleConfigurations: false, 
+                            extensions: [[$class: 'CleanCheckout']], 
+                            submoduleCfg: [], 
+                            userRemoteConfigs: [[credentialsId: gitHubCredential,
+                                                url: gitHubURL]]
+                        ])
+                    }
                 }
                 stage ('Attach Env Files') {
                     steps {
