@@ -15,18 +15,20 @@ pipeline {
     
     stages {
         stage ('Prepare Code Env') {
-            steps {
-                println """ 
-                        ********************************************************
+            parallel {
+                stage ('Job Start Message') {
+                    steps {
+                        println """ 
+                                ********************************************************
                                              JOB START
 
-                        JOB: ${JOB_NAME}
-                        RUNNING ON: ${NODE_NAME}
-                        EXECUTER: ${EXECUTOR_NUMBER}
-                        ********************************************************
-                """.stripIndent()
-            }
-            parallel {
+                                JOB: ${JOB_NAME}
+                                RUNNING ON: ${NODE_NAME}
+                                EXECUTER: ${EXECUTOR_NUMBER}
+                                ********************************************************
+                        """.stripIndent()
+                    }
+                }
                 stage ('Git Checkout') {
                     steps {
                         checkout([
