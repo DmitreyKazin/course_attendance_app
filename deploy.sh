@@ -36,6 +36,11 @@ cd /home/ec2-user/
 docker-compose -f docker-compose-prod.yml down
 docker images -q | xargs docker rmi -f
 docker-compose -f docker-compose-prod.yml up -d --no-build
+HTTPS_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" https://127.0.0.1:5000/)
+if [ $HTTP_STATUS -eq 200 ];
+then
+	echo "SUCCESS"
+else
+	echo "SUCCESS"
+fi
 EOF
-
-echo "DEPLOY TO ${STAGE} ENVIRONMENT: SUCCESS"
