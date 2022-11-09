@@ -15,6 +15,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 3
+    restart: on-failure
   flask:
     image: dmitreykazin/course_attendance_app:latest
     container_name: flask-app
@@ -23,5 +24,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    restart: on-failure
 volumes:
   data:
