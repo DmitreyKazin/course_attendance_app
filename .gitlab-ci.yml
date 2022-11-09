@@ -3,14 +3,16 @@ stages:
   - health_test
 
 health_test:
-  image: docker/compose:alpine-1.29.2
+  image: docker:latest
+  tags:
+    - localdocker
+    - localcompose
   services:
     - docker:dind
   stage: health_test
-  before_script:
-    - apk --no-cache add curl
   script:
+    - docker-compose up -d
+    - sleep 15
+    - HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n"  http://127.0.0.1:5000/)
     - docker-compose down
-    - docker-compose up --build
-    - curl http://127.0.0.1:5000/
-
+    - if [ $HTTP_STATUS -eq 200 ]; then echo SUCCES; else echo FAIL && exit 1; fi
