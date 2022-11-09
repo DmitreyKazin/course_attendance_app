@@ -51,7 +51,8 @@ pipeline {
                         CREATING CONTAINERS AND SENDING REQUEST...
                         ********************************************************
                 """.stripIndent()
-	            sh ''' docker images -q | xargs docker rmi -f
+	            sh ''' docker ps -aq | xargs docker rm -f
+		           docker images -q | xargs docker rmi -f
 		           docker system prune --volumes
 			   docker-compose up -d 
 		           sleep 15
