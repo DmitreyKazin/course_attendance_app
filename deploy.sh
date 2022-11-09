@@ -35,7 +35,7 @@ ec2-user@$DEPLOY_ENV \
 cd /home/ec2-user/
 docker-compose -f docker-compose-prod.yml down
 docker images -q | xargs docker rmi -f
-docker-compose -f docker-compose-prod.yml up -d --build
+docker-compose -f docker-compose-prod.yml up -d --no-build
 EOF
 
 echo "DEPLOY TO ${STAGE} ENVIRONMENT: SUCCESS"
