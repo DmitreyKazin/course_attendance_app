@@ -38,10 +38,4 @@ docker images -q | xargs docker rmi -f
 docker-compose -f docker-compose-prod.yml up -d --no-build
 sleep 15
 HTTPS_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" https://127.0.0.1:5000/)
-if [[ $HTTP_STATUS == 200 ]];
-then
-	echo "SUCCESS"
-else
-	echo "FAIL"
-fi
 EOF
