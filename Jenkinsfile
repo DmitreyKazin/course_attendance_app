@@ -14,10 +14,8 @@ pipeline {
     }
     
     stages {
-	parallel {
-            stage ('Git Checkout') {
-                steps {
-	            println """ 
+        stage ('Prepare Code Env') {
+            println """ 
                         ********************************************************
                                              JOB START
 
@@ -25,7 +23,9 @@ pipeline {
                         RUNNING ON: ${NODE_NAME}
                         EXECUTER: ${EXECUTOR_NUMBER}
                         ********************************************************
-                    """.stripIndent()
+            """.stripIndent()
+            parallel {
+                stage ('Git Checkout') {
                     checkout([
                        $class: 'GitSCM', 
                        branches: [[name: 'master']], 
@@ -36,38 +36,38 @@ pipeline {
                                             url: gitHubURL]]
                        ])
                 }
-          }
-	    stage ('Attach Env Files') {
+                stage ('Attach Env Files') {
+                    steps {
+	                    sh ''' cp /home/ec2-user/workspace/env_files/.env /home/ec2-user/workspace/release-pipeline/		
+	    	                   cp -r /home/ec2-user/workspace/env_files/env /home/ec2-user/workspace/release-pipeline/
+		                '''
+		            }
+                }
+            }
+        }
+	    stage ('Health Test') {
 	        steps {
-	            sh ''' cp /home/ec2-user/workspace/env_files/.env /home/ec2-user/workspace/release-pipeline/		
-	    	           cp -r /home/ec2-user/workspace/env_files/env /home/ec2-user/workspace/release-pipeline/
-		    '''
-		}
-	    }
-	}
-	stage ('Health Test') {
-	   steps {
-               println """
-                       ********************************************************
+                println """
+                        ********************************************************
                                            HEALTH CHECK START
 
-                       CREATING CONTAINERS AND SENDING REQUEST...
-                       ********************************************************
-               """.stripIndent()
-	       sh ''' docker-compose up -d
-		      sleep 15
-                      HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
-		      if [ $HTTP_STATUS -eq 200 ];
-		      then
-		      		echo "TEST: SUCCES"
-		      else
-				echo "TEST: FAIL"
-				exit 1
-		      fi
-	       '''
-	   }
-	}
-	stage ('Build Images') {
+                        CREATING CONTAINERS AND SENDING REQUEST...
+                        ********************************************************
+                """.stripIndent()
+	            sh ''' docker-compose up -d
+		               sleep 15
+                       HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
+		               if [ $HTTP_STATUS -eq 200 ];
+		               then
+		      		        echo "TEST: SUCCES"
+		               else
+				            echo "TEST: FAIL"
+				            exit 1
+		               fi
+	            '''
+	        }
+     	}
+	    stage ('Build Images') {
             steps {
                 println """
                     ********************************************************
@@ -86,41 +86,41 @@ pipeline {
         }
         stage ('Push to DockerHub') {
             steps {
-               script {
+                script {
                     docker.withRegistry( '', dockerHubRegistryCredential ) {
                         dockerLatestImage.push()
-			dockerTagImage.push()
+			            dockerTagImage.push()
                     }
-               }
+                }
             }
         }
-	stage ('Deploy to Staging') {
-	    steps {
-		println """
-                       ********************************************************
+	    stage ('Deploy to Staging') {
+	        steps {
+	 	        println """
+                        ********************************************************
                                          DEPLOYING TO STAGING ENVIRONMENT...
-                       ********************************************************
+                        ********************************************************
                 """.stripIndent()
-  	        sh 'bash ./deploy.sh staging'
+  	            sh 'bash ./deploy.sh staging'
+	        }
 	    }
-	}
-	stage ('Deploy to Production') {
-	    steps {
-		println """
-                       ********************************************************
+	    stage ('Deploy to Production') {
+	        steps {
+		        println """
+                        ********************************************************
                                          DEPLOYING TO PRODUCTION ENVIRONMENT...
-                       ********************************************************
+                        ********************************************************
                 """.stripIndent()
-	    	sh 'bash ./deploy.sh production'
+	    	    sh 'bash ./deploy.sh production'
             }
-	}
+	    }
     }
     
     post {
         always {
 	    println """
                     ********************************************************
-                    JOB ${currentBuild.currentResult}
+                    JOB: ${BUILD_TAG} ${currentBuild.currentResult}
                     ********************************************************
             """.stripIndent()
             emailext to: "kazindmitrey@gmail.com",
