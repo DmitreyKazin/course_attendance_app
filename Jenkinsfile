@@ -53,7 +53,6 @@ pipeline {
                 """.stripIndent()
 	            sh ''' docker ps -aq | xargs docker rm -f
 		           docker images -q | xargs docker rmi -f
-		           docker system prune --volumes
 			   docker-compose up -d 
 		           sleep 15
                            HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
