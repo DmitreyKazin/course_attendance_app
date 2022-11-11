@@ -1,6 +1,6 @@
 ---
 stages:
-  - health_test
+  - test
 
 health_test:
   image: docker:latest
@@ -9,10 +9,22 @@ health_test:
     - localcompose
   services:
     - docker:dind
-  stage: health_test
+  stage: test
   script:
     - docker-compose up -d
     - sleep 15
     - HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n"  http://127.0.0.1:5000/)
     - docker-compose down
     - if [ $HTTP_STATUS -eq 200 ]; then echo SUCCES; else echo FAIL && exit 1; fi
+
+lint_test:
+  image: python:3.10-slim
+  stage: test
+  before_script:
+    - pip install flake8-html
+  script:
+    - flake8 --format=html --htmldir=flake_reports/ || true
+  artifacts:
+    when: always
+    paths:
+      - flake_reports/
