@@ -31,6 +31,12 @@ The CI/CD pipeline is running on jenkins slave (test machine), and here is the b
 - Deploy to Staging --> by using 'deploy.sh' bash script, the new version is deployed to the staging server (AES EC2 server).
 - Deploy to Production --> By using 'deploy.sh' bash script, the new version is deployed to the production server (AWS EC2 server).
 
+### GitLab
+- Test --> Two tests are performed, health test and lint test.
+- Build --> Build docker image and push to DockerHub repository.
+- Deploy Staging --> Deploying the application using docker-compose to staging server (AWS EC2).
+- Deploy Production --> Deploying the application using docker-compose to production server (AWS EC2) only when merged to main branch.
+
 ## Installation For Docker Compose
 
 - Instal Docker, and Docker-Compose on your operating system, here are the installation links:
