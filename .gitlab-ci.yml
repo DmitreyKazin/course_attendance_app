@@ -60,7 +60,6 @@ build:
   script:
     - docker build -t $IMAGE_TAG -f Dockerfile-flask .
     - docker push $IMAGE_TAG
-    - docker push $IMAGE_TAG
 
 deploy_staging:
   <<: *deploy_template
