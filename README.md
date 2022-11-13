@@ -18,8 +18,9 @@ This application allows to manage and monitor student attendance in webex meetin
 
 For more details, watch the video: [click here](https://vimeo.com/756572554#t=67)
 
-## CI/CD - Jenkins
+## CI/CD
 
+### Jenkins
 To launch Jenkins, I used two AWS EC2 servers, both builded from Linux 2 AMI. One of the servers is acting as the master, and the second one is a slave.
 The CI/CD pipeline is running on jenkins slave (test machine), and here is the breakdown for the steps:
 - Git checkout --> Clone GitHub rpeository.
@@ -29,6 +30,12 @@ The CI/CD pipeline is running on jenkins slave (test machine), and here is the b
 - Push to DockerHub --> Pushes both images into DockerHub repository.
 - Deploy to Staging --> by using 'deploy.sh' bash script, the new version is deployed to the staging server (AES EC2 server).
 - Deploy to Production --> By using 'deploy.sh' bash script, the new version is deployed to the production server (AWS EC2 server).
+
+### GitLab
+- Test --> Two tests are performed, health test and lint test.
+- Build --> Build docker image and push to DockerHub repository.
+- Deploy Staging --> Deploying the application using docker-compose to staging server (AWS EC2).
+- Deploy Production --> Deploying the application using docker-compose to production server (AWS EC2) only when merged to main branch.
 
 ## Installation For Docker Compose
 
