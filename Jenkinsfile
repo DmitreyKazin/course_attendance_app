@@ -8,7 +8,7 @@ pipeline {
         dockerHubRegistry = 'dmitreykazin/course_attendance_app'
         dockerHubRegistryCredential = '99f93f2b-67ae-4bf9-9c2b-c5f02dab9cdd'
         dockerLatestImage = ''
-	    dockerTagImage = ''
+	dockerTagImage = ''
         gitHubCredential = '9c934149-1068-4763-8744-80e8ebafa24f'
         gitHubURL = 'https://github.com/DmitreyKazin/course_attendance_app.git'
     }
@@ -19,6 +19,7 @@ pipeline {
                 println """ 
                         ********************************************************
                                         JOB START
+
                         JOB: ${JOB_NAME}
                         RUNNING ON: ${NODE_NAME}
                         EXECUTER: ${EXECUTOR_NUMBER}
@@ -41,44 +42,36 @@ pipeline {
 		        '''
 		    }
         }
-        stage('Test App') {
-            parallel {
-                stage ('Health Test') {
-	                steps {
-                        println """
+	    stage ('Health Test') {
+	        steps {
+                println """
                         ********************************************************
                                            HEALTH CHECK START
+
                         CREATING CONTAINERS AND SENDING REQUEST...
                         ********************************************************
-                        """.stripIndent()
-	                    sh ''' docker ps -aq | xargs docker rm -f
-		                       docker images -q | xargs docker rmi -f
-			                   docker-compose up -d 
-		                       sleep 15
-                               HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
-		                       if [ $HTTP_STATUS -eq 200 ];
-		                       then
-		      		               echo "TEST: SUCCES"
-		                       else
-				                   echo "TEST: FAIL"
-				                   exit 1
-		                       fi
-	                    '''
-	                }
-     	        } 
-                stage ('Lint Test') {
-                    sh ''' flake8 --format=html --htmldir=./flake_reports/ || true
-                    '''
-                }
-            }
-
-        }
-	   
+                """.stripIndent()
+	            sh ''' docker ps -aq | xargs docker rm -f
+		           docker images -q | xargs docker rmi -f
+			   docker-compose up -d 
+		           sleep 15
+                           HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
+		               if [ $HTTP_STATUS -eq 200 ];
+		               then
+		      		        echo "TEST: SUCCES"
+		               else
+				            echo "TEST: FAIL"
+				            exit 1
+		               fi
+	            '''
+	        }
+     	}
 	    stage ('Build Images') {
             steps {
                 println """
                     ********************************************************
                                            BUILD START
+
                     BUILD TAG: ${BUILD_TAG}
                     ********************************************************
                 """.stripIndent()
