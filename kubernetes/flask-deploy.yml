@@ -20,10 +20,4 @@ spec:
             - name: flask-container
               containerPort: 5000
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 10
-            timeoutSeconds: 10
 
