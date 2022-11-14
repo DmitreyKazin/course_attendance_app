@@ -51,19 +51,19 @@ pipeline {
                         CREATING CONTAINERS AND SENDING REQUEST...
                         ********************************************************
                 """.stripIndent()
-	            sh ''' docker ps -aq | xargs docker rm -f
-		           docker images -q | xargs docker rmi -f
-			   docker-compose up -d 
-		           sleep 15
-                           HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
-		               if [ $HTTP_STATUS -eq 200 ];
-		               then
-		      		        echo "TEST: SUCCES"
-		               else
-				            echo "TEST: FAIL"
-				            exit 1
-		               fi
-	            '''
+	        sh ''' docker ps -aq | xargs docker rm -f
+		       docker images -q | xargs docker rmi -f
+		       docker-compose up -d 
+		       sleep 15
+                       HTTP_STATUS=`curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5000/` 
+		       if [ $HTTP_STATUS -eq 200 ];
+		       then
+		           echo "TEST: SUCCES"
+		       else
+			   echo "TEST: FAIL"
+			   exit 1
+		       fi
+	        '''
 	        }
      	}
 	    stage ('Build Images') {
@@ -88,7 +88,7 @@ pipeline {
                 script {
                     docker.withRegistry( '', dockerHubRegistryCredential ) {
                         dockerLatestImage.push()
-			            dockerTagImage.push()
+		        dockerTagImage.push()
                     }
                 }
             }
@@ -99,18 +99,22 @@ pipeline {
                         ********************************************************
                                          DEPLOYING TO STAGING ENVIRONMENT...
                         ********************************************************
-                """.stripIndent()
-  	            sh 'bash ./deploy.sh staging'
+                	""".stripIndent()
+  	            	sh 'bash ./deploy.sh staging'
 	        }
 	    }
 	    stage ('Deploy to Production') {
 	        steps {
+			timeout(time: 60, unit: 'SECONDS') {
+				input(message:"Deploy to Production?",
+				      ok: "yes")
+			}
 		        println """
-                        ********************************************************
-                                         DEPLOYING TO PRODUCTION ENVIRONMENT...
-                        ********************************************************
-                """.stripIndent()
-	    	    sh 'bash ./deploy.sh production'
+                                ********************************************************
+                                           DEPLOYING TO PRODUCTION ENVIRONMENT...
+                                ********************************************************
+                	""".stripIndent()
+	    	    	sh 'bash ./deploy.sh production'
             }
 	    }
     }
