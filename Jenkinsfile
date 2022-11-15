@@ -42,7 +42,7 @@ pipeline {
 		        '''
 		    }
         }
-	    stage ('Health Test') {
+	    stage ('Test') {
 	        steps {
                 println """
                         ********************************************************
