@@ -32,7 +32,7 @@ The CI/CD pipeline is running on jenkins slave (test machine), and here is the b
 - Deploy to Production --> By using 'deploy.sh' bash script, the new version is deployed to the production server (AWS EC2 server).
 
 ### GitLab
-- Test --> Two tests are performed, health test and lint test.
+- Test --> Two tests are performed, sanity test and lint test.
 - Build --> Build docker image and push to DockerHub repository.
 - Deploy Staging --> Deploying the application using docker-compose to staging server (AWS EC2).
 - Deploy Production --> Deploying the application using docker-compose to production server (AWS EC2) only when merged to main branch.
