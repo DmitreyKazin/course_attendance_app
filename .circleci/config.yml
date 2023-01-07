@@ -1,0 +1,35 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: alpine:latest
+        command: /bin/sh
+        stage: builder
+    steps:
+      - run:
+          name: Install dependencies
+          command: apk update && apk add curl
+      - run:
+          name: Install CircleCI runner
+          command: curl -fLSs https://circle.ci/cli | bash
+      - run:
+          name: Install Kaniko
+          command: |
+            curl -sL https://github.com/GoogleContainerTools/kaniko/releases/download/v0.17.1/kaniko-v0.17.1.tar.gz | tar -C /usr/local/bin -xz
+            chmod +x /usr/local/bin/kaniko
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          docker:
+            - image: gcr.io/kaniko-project/executor:latest
+            steps:
+              - run:
+                  command: kaniko build -f /path/to/Dockerfile -t my-image:latest .
+
